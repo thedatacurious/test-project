@@ -1,33 +1,19 @@
 <script>
-  import svelteLogo from "./assets/svelte.svg";
-  import Counter from "./lib/Counter.svelte";
+  import Sankey from "./lib/Sankey.svelte";
   import * as aq from "arquero";
 </script>
 
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src="/vite.svg" class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+  <h1>Placeholder Title</h1>
 
-  <div class="card">
-    <Counter />
-  </div>
+  <h3>Placeholder Section: Renewable Investments</h3>
 
   <p>
-    Check out <a
-      href="https://github.com/sveltejs/kit#readme"
-      target="_blank"
-      rel="noreferrer">SvelteKit</a
-    >, the official Svelte app framework powered by Vite!
+    Plot showing contrast in region between usage of renewable energy and
+    investment
   </p>
 
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
+  <p>Sankey plot on donor flows to Africa</p>
 </main>
 
 <style>
