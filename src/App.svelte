@@ -1,6 +1,7 @@
 <script>
+  import {max} from 'd3-array'
   import svelteLogo from "./assets/svelte.svg";
-  import Counter from "./lib/Counter.svelte";
+  import Counter from "./lib/Components/Counter.svelte";
   import * as aq from "arquero";
 </script>
 
@@ -13,7 +14,7 @@
       <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
     </a>
   </div>
-  <h1>Vite + Svelte in Pere Branch</h1>
+  <h1>Vite + Svelte in Pere Branch4</h1>
 
   <div class="card">
     <Counter />
