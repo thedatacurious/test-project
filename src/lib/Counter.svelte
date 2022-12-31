@@ -1,7 +1,7 @@
 
-
-
 <script>
+import {scaleLinear, scaleBand} from 'd3-scale';
+
   let count = 0
   const increment = () => {
     count += 1
