@@ -1,7 +1,7 @@
 <script>
   import {max} from 'd3-array'
   import svelteLogo from "./assets/svelte.svg";
-  import Counter from "./lib/Components/Counter.svelte";
+  import Counter from "./Components/Counter.svelte";
   import * as aq from "arquero";
 </script>
 
