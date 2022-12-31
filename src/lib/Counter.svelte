@@ -1,8 +1,5 @@
 
-/*
-import {scaleLinear, scaleBand} from 'd3-scale';
-import {max} from 'd3-array'
-*/
+
 
 <script>
   let count = 0
