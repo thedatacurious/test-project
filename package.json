@@ -15,5 +15,6 @@
   },
   "dependencies": {
     "arquero": "^5.1.0"
+
   }
 }
