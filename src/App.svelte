@@ -2,7 +2,7 @@
   import { LayerCake, Svg } from "layercake";
   import Sankey from "./lib/Sankey.svelte";
   import Range from "./lib/Range.svelte";
-  import { sankeyData, data, ChinaAfricaInfo } from "./data.js";
+  import { sankeyData, ChinaAfricaInfo } from "./data.js";
 
   $: sankeyYear = 2010;
   $: filteredSankeyData = sankeyData[sankeyYear];

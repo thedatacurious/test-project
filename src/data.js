@@ -1,31 +1,9 @@
 import * as aq from "arquero";
 import investCSV from "./data/IRENA_RE_Public_Investment_July2022.csv?raw";
 import clm from "country-locale-map";
-import { sum } from "d3";
 
 export let sankeyData;
 export let ChinaAfricaInfo;
-export let data;
-
-data = {
-  nodes: [
-    { id: "A1" },
-    { id: "A2" },
-    { id: "A3" },
-    { id: "B1" },
-    { id: "B2" },
-    { id: "B3" },
-    { id: "B4" },
-  ],
-  links: [
-    { source: "A1", target: "B1", value: 27 },
-    { source: "A1", target: "B2", value: 9 },
-    { source: "A2", target: "B2", value: 5 },
-    { source: "A2", target: "B3", value: 11 },
-    { source: "A3", target: "B2", value: 12 },
-    { source: "A3", target: "B4", value: 7 },
-  ],
-};
 
 //  Load investment flow data
 const investRaw = aq.fromCSV(investCSV);
