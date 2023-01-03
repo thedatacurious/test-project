@@ -3,16 +3,32 @@
 	Generates an SVG Sankey chart using [d3-sankey](https://github.com/d3/d3-sankey).
  -->
 <script>
-  import { getContext } from "svelte";
+  import { getContext, createEventDispatcher } from "svelte";
   import * as Sankey from "d3-sankey";
 
   const { data, width, height } = getContext("LayerCake");
 
   /** @type {Function} [colorLinks=d => 'rgba(0, 0, 0, .2)'] – A function to return a color for the links. */
-  export let colorLinks = (d) => "rgba(0, 0, 0, .2)";
+  export let colorLinks = (d) => {
+    if (
+      ["Sub-Saharan Africa", "Northern Africa"].includes(d.target.id) &&
+      d.source.id === "China"
+    ) {
+      return "#9c65ff";
+    } else if (
+      ["Sub-Saharan Africa", "Northern Africa"].includes(d.target.id)
+    ) {
+      return "#6185ff";
+    } else {
+      return "rgba(0, 0, 0, .2)";
+    }
+  };
 
   /** @type {Function} [colorNodes=d => '#333'] – A function to return a color for each node. */
-  export let colorNodes = (d) => "#333";
+  export let colorNodes = (d) =>
+    ["Sub-Saharan Africa", "Northern Africa", "China"].includes(d.id)
+      ? "#9c65ff"
+      : "rgba(0, 0, 0, .2)";
 
   /** @type {Function} [colorText=d => '#263238'] – A function to return a color for each text label. */
   export let colorText = (d) => "#263238";
@@ -34,6 +50,7 @@
 
   $: sankey = Sankey.sankey()
     .nodeAlign(nodeAlign)
+    // @ts-ignore
     .nodeWidth(nodeWidth)
     .nodePadding(nodePadding)
     .nodeId(nodeId)
@@ -44,7 +61,7 @@
 
   $: link = Sankey.sankeyLinkHorizontal();
 
-  $: fontSize = $width <= 320 ? 8 : 12;
+  $: fontSize = $width <= 320 ? 8 : 14;
 </script>
 
 <g class="sankey-layer">
@@ -77,7 +94,7 @@
 							font-size: {fontSize}px;
 							text-anchor: {d.x0 < $width / 4 ? 'start' : 'end'};"
       >
-        {d.id}, {d.value}
+        {d.id}
       </text>
     {/each}
   </g>
