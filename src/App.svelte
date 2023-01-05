@@ -1,12 +1,22 @@
 <script>
-  import { LayerCake, Svg } from "layercake";
+  import { LayerCake, Svg, calcExtents, flatten } from "layercake";
   import Sankey from "./lib/Sankey.svelte";
   import Range from "./lib/Range.svelte";
-  import { sankeyData, ChinaAfricaInfo } from "./data.js";
+  import SmallMultiple from "./lib/SmallMultiple.svelte";
+  import { sankeyData, ChinaAfricaInfo, regionalNested } from "./data.js";
 
   $: sankeyYear = 2010;
   $: filteredSankeyData = sankeyData[sankeyYear];
   $: loanAmount = ChinaAfricaInfo[sankeyYear] ?? 0;
+
+  const extentGetters = {
+    x: (d) => d.year,
+    y1: (d) => d.regionalInvestment,
+    y2: (d) => d.regionalAvg,
+  };
+
+  const fullExtents = calcExtents(flatten(regionalNested), extentGetters);
+  let chart = "Investment";
 </script>
 
 <main>
@@ -19,6 +29,25 @@
   <p>Beeswarm plot 1</p>
 
   <h3>Renewable Investments</h3>
+
+  <div class="input-container">
+    <label
+      ><input type="radio" bind:group={chart} value="Investment" />Renewable
+      energy investment received</label
+    >
+    <label
+      ><input type="radio" bind:group={chart} value="Usage" />Usage of renewable
+      energy as a proportion of primary energy</label
+    >
+  </div>
+
+  <div class="small-multiple-container">
+    {#each regionalNested as data}
+      <div class="line-container">
+        <SmallMultiple {data} {fullExtents} {chart} {extentGetters} />
+      </div>
+    {/each}
+  </div>
 
   <p>
     The chart below shows renewable energy finance flows from donors (left) to
@@ -63,6 +92,26 @@
 </main>
 
 <style>
+  .small-multiple-container {
+    height: 600px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .input-container {
+    margin-bottom: 7px;
+  }
+  label {
+    cursor: pointer;
+  }
+  input {
+    margin-right: 7px;
+  }
+  .line-container {
+    width: 15%;
+    height: 40%;
+  }
+
   .sankey-container {
     width: 100%;
     height: 800px;
