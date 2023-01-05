@@ -1,12 +1,16 @@
 import * as aq from "arquero";
 import investCSV from "./data/IRENA_RE_Public_Investment_July2022.csv?raw";
+import renewShareCSV from "./data/renewable-share-energy.csv?raw";
 import clm from "country-locale-map";
+import * as fs from "node:fs/promises";
 
 export let sankeyData;
 export let ChinaAfricaInfo;
+export let regionalNested;
 
-//  Load investment flow data
+//  Load data
 const investRaw = aq.fromCSV(investCSV);
+const renewShareRaw = aq.fromCSV(renewShareCSV);
 
 // Create mapping for consistent naming
 const institutions = [
@@ -62,6 +66,7 @@ const regionalRollup = {
   "Central Africa": "Sub-Saharan Africa",
   "East Asia": "North and Southeast Asia",
   "South East Asia": "North and Southeast Asia",
+  "Northern Asia": "North and Southeast Asia",
   "West Indies": "Central America and the Caribbean",
   "Central America": "Central America and the Caribbean",
   "South East Europe": "Europe",
@@ -141,4 +146,37 @@ ChinaAfricaInfo = aq
   .pivot("year", "value")
   .objects()[0];
 
-console.log(ChinaAfricaInfo);
+// Combine data on renewable investment recieved with data on renewable energy usage proportion out of primary energy
+
+const renewShareData = renewShareRaw
+  .filter((d) => aq.op.length(d.Code) == 3 && d.Year >= 2000 && d.Year < 2021)
+  .rename({
+    Code: "targetISO",
+    "Renewables (% equivalent primary energy)": "renewPortion",
+    Year: "year",
+  })
+  .derive({ targetRegion: aq.escape((d) => getTargetRegion(d)) })
+  .groupby("year", "targetRegion")
+  .rollup({
+    regionalAvg: (d) => aq.op.mean(d.renewPortion),
+  })
+  .derive({ regionalAvg: (d) => aq.op.round(d.regionalAvg * 10) / 10 });
+
+const flatRegionalComparison = investData
+  .groupby("year", "targetRegion")
+  .rollup({
+    regionalInvestment: (d) => aq.op.sum(d.value),
+  })
+  .derive({
+    regionalInvestment: (d) => aq.op.round(d.regionalInvestment * 10) / 10,
+  })
+  .join(renewShareData)
+  .orderby("targetRegion", "year")
+  .objects();
+
+// Created nest array required for charting
+regionalNested = Array.from(
+  new Set(flatRegionalComparison.map((d) => d.targetRegion))
+).map((region) => [
+  ...flatRegionalComparison.filter((d) => d.targetRegion === region),
+]);
