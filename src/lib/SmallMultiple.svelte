@@ -37,8 +37,12 @@
 >
   <Svg>
     <text dy="12em">{region}</text>
+    <Area
+      fill={region === "Sub-Saharan Africa" || region === "Northern Africa"
+        ? "#9c65ff80"
+        : "#ab00d610"}
+    />
     <Line stroke={"#808080"} />
-    <Area />
   </Svg>
 </LayerCake>
 
