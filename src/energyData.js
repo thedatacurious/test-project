@@ -4,7 +4,7 @@ import clm from 'country-locale-map'
 const { op } = aq
 
 //  Load energy data
-const pathToCsv = './data/energyData.csv?raw'
+const csvData = './data/energyData.csv?raw'
 const csvData = fs.readFileSync(pathToCsv, 'utf8')
 
 const energyRaw = aq.fromCSV(csvData)
