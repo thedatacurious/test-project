@@ -78,7 +78,6 @@
   </g>
   <g class="rect-group">
     {#each sankeyData.nodes as d, i}
-      <!-- {console.log(d)} -->
       <rect
         x={d.x0}
         y={d.y0}

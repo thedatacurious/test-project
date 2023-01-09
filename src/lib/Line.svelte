@@ -7,7 +7,7 @@
 
   const { custom, data, x, y, xGet, yGet } = getContext("LayerCake");
 
-  /** @type {String} [stroke='#ab00d6'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
+  /** @type {String}  */
   export let stroke = "#ab00d6";
 
   $: path =
@@ -56,6 +56,5 @@
 
   text {
     font-size: 10px;
-    /* text-shadow: 1px 1px 2px pink; */
   }
 </style>
