@@ -193,9 +193,16 @@ energyClean = energyRaw.select({
   renewables_share_energy: 'renewablesShareCon',
   renewables_share_elec: 'renewablesShareGen',
 })
-.derive({ gdpPerCap : d => d.gdp/d.population})
+ .derive({
+    gdpPerCap: (d) => d.gdp / d.population,
+    population: (d) => aq.op.parse_float(d.population),
+    gdp: (d) => aq.op.parse_float(d.gdp),
+    renewablesShareCon: (d) => aq.op.parse_float(d.renewablesShareCon),
+    renewablesShareGen: (d) => aq.op.parse_float(d.renewablesShareGen),
+  })
 .filter(
   (d) =>
     d.gdp >= 0 &&
     d.renewablesShareCon >= 0
 )
+.objects();
