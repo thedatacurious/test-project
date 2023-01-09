@@ -1,16 +1,18 @@
 import * as aq from "arquero";
 import investCSV from "./data/IRENA_RE_Public_Investment_July2022.csv?raw";
 import renewShareCSV from "./data/renewable-share-energy.csv?raw";
+import energyCSV from "./data/energyData.csv?raw";
 import clm from "country-locale-map";
-import * as fs from "node:fs/promises";
 
 export let sankeyData;
 export let ChinaAfricaInfo;
 export let regionalNested;
+export let energyClean;
 
 //  Load data
 const investRaw = aq.fromCSV(investCSV);
 const renewShareRaw = aq.fromCSV(renewShareCSV);
+const energyRaw = aq.fromCSV(energyCSV);
 
 // Create mapping for consistent naming
 const institutions = [
@@ -180,3 +182,20 @@ regionalNested = Array.from(
 ).map((region) => [
   ...flatRegionalComparison.filter((d) => d.targetRegion === region),
 ]);
+
+// Data cleaning for energy
+energyClean = energyRaw.select({
+  country: 'country',
+  year: 'year',
+  iso_code: 'targetISO',
+  gdp: 'gdp',
+  population: 'population',
+  renewables_share_energy: 'renewablesShareCon',
+  renewables_share_elec: 'renewablesShareGen',
+})
+.derive({ gdpPerCap : d => d.gdp/d.population})
+.filter(
+  (d) =>
+    d.gdp >= 0 &&
+    d.renewablesShareCon >= 0
+)
