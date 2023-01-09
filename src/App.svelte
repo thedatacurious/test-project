@@ -45,8 +45,6 @@
     wind, solar, hydro, and geothermal energy sources.
   </p>
 
-  <p>[Beeswarm plots placeholder]</p>
-
   <p>
     We take a look at how much investment each region is receiving for renewable
     energy from 2000 to 2020. Despite the high investment amount in Sub-Saharan
