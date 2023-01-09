@@ -5,7 +5,6 @@ const { op } = aq
 
 //  Load energy data
 const csvData = './data/energyData.csv?raw'
-const csvData = fs.readFileSync(pathToCsv, 'utf8')
 
 const energyRaw = aq.fromCSV(csvData)
 
