@@ -58,8 +58,8 @@
       received</label
     >
     <label
-      ><input type="radio" bind:group={chart} value="Usage" />Usage of renewable
-      energy</label
+      ><input type="radio" bind:group={chart} value="Usage" />Share of renewable
+      sources in energy mix</label
     >
   </div>
 
