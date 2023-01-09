@@ -127,12 +127,25 @@
 </main>
 
 <style>
-  .small-multiple-container {
-    height: 600px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  @media (min-width: 300px) {
+    .small-multiple-container {
+      height: 1400px;
+      width: 100%;
+      display: grid;
+      justify-items: center;
+    }
   }
+
+  @media (min-width: 800px) {
+    .small-multiple-container {
+      height: 600px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: center;
+    }
+  }
+
   .input-container {
     margin-top: 7px;
   }
