@@ -21,7 +21,7 @@ const energyClean = energyRaw.select({
   .derive({ gdpPerCap : d => d.gdp/d.population})
   .filter(
     (d) =>
-      op.abs(d.gdp) >= 0 &&
+      d.gdp >= 0 &&
       op.abs(d.renewablesShareCon) >= 0 &&
       op.abs(d.year) === 2018,
   )
