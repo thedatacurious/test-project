@@ -3,7 +3,7 @@
   import Sankey from "./lib/Sankey.svelte";
   import Range from "./lib/Range.svelte";
   import SmallMultiple from "./lib/SmallMultiple.svelte";
-  import { sankeyData, ChinaAfricaInfo, regionalNested, energyClean} from "./data.js";
+  import { sankeyData, ChinaAfricaInfo, regionalNested, beeswarm_data} from "./data.js";
 
   $: sankeyYear = 2003;
   $: filteredSankeyData = sankeyData[sankeyYear];
