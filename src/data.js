@@ -7,7 +7,7 @@ import clm from "country-locale-map";
 export let sankeyData;
 export let ChinaAfricaInfo;
 export let regionalNested;
-export let energyClean;
+export let beeswarm_data;
 
 //  Load data
 const investRaw = aq.fromCSV(investCSV);
@@ -184,7 +184,7 @@ regionalNested = Array.from(
 ]);
 
 // Data cleaning for energy
-energyClean = energyRaw.select({
+beeswarm_data = energyRaw.select({
   country: 'country',
   year: 'year',
   iso_code: 'targetISO',
